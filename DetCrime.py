@@ -53,6 +53,11 @@ def SetSort(fname='default.json'):
                 print(f"Pulling neighborhoods from {fname}...")
             case "police_precinct":
                 print(f"Pulling precincts from {fname}...")
+            case "offense_category":
+                print(f"Pulling offense categories from {fname}...")
+            case "nearest_intersection":
+                print(f"Pulling nearest intersections from {fname}...")cls
+                
             case _:
                 print(f"Invalid or unknown method provided.")
                 return []
@@ -94,6 +99,9 @@ def main():
         reader = csv.DictReader(csvfile)        
         
         for row in reader:
+            if sort_method == 'offense_description': # remove trailing tab stops
+                row['offense_description'] = row['offense_description'].rstrip('    ')
+            
             for h in sort_list:
                 if row[sort_method] == h:
                     crimes.append(row)
