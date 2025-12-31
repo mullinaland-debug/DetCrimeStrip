@@ -14,6 +14,7 @@ import os, sys, csv, datetime, argparse, json
 # GetNeighborhoodNames() looks in the RMS_Crime_Incidents.csv file and pulls out all the unique neighborhood names.
 # Known issue: for some reason, it inserts a string "nan" in between 'Downtown' and 'Outer Drive-Hayes'. It does not\
 # appear to be in the original data, and when you print the list, it is not treated as a string. EG: [...,'Downtown',nan,'Outer Drive-Hayes',...]
+#
 def GetNeighborhoodNames():
         import pandas
         
@@ -123,7 +124,7 @@ def main():
         
     for h in sort_list:
         fname = h + ' - ' + str(start_year) + ' to ' + str(end_year) + '.csv'
-        fname = fname.replace('/','-')
+        fname = fname.replace('/','_')
         rows = 0
         with open(fname, 'w', newline='') as yearfile:
             print(f"Writing {fname}...")
