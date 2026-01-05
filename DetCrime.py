@@ -28,7 +28,8 @@ Date: 1/2/2026
 Python Version: 3.14.2
 Author: Alan Mullin
 """
-import os, sys, csv, datetime, argparse, json, re    
+import os, sys, csv, datetime, argparse, json, re
+from operator import itemgetter
 
 #
 # GetNeighborhoodNames() looks in the RMS_Crime_Incidents.csv file and pulls out all the unique neighborhood names.
@@ -78,8 +79,7 @@ def SetSort(fname='default.json'):
             case "offense_description":
                 print(f"Pulling offense descriptions from {fname}...")
             case "nearest_intersection":
-                print(f"Pulling nearest intersections from {fname}...")
-                
+                print(f"Pulling nearest intersections from {fname}...")                
             case _:
                 print(f"Invalid or unknown method provided.")
                 return []
@@ -140,6 +140,9 @@ def main():
     
     print(f"Total Crimes: {crimes_total}")
     csvfile.close()
+    
+    # sort by incident_occurred_at
+    crimes = sorted(crimes, key=itemgetter('incident_occurred_at'))
     
     #Write our grand output
     print(f"Beginning file write...")
