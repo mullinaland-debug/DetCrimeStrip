@@ -24,7 +24,7 @@ JSON format:
     
 
 Version: 1.1.1
-Date: 1/5/2026
+Date: 1/13/2026
 Python Version: 3.14.2
 Author: Alan Mullin
 """
@@ -72,6 +72,8 @@ def SetSort(fname='default.json'):
                 print(f"Pulling ZIP Codes from {fname}...")
             case "neighborhood":
                 print(f"Pulling neighborhoods from {fname}...")
+            case "report_number":
+                print(f"Pullin report numbers from {fname}...")
             case "police_precinct":
                 print(f"Pulling precincts from {fname}...")
             case "offense_category":
