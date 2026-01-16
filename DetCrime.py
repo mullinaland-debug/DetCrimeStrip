@@ -193,4 +193,5 @@ def main():
 
     print(f"Total Time: {(datetime.datetime.now() - start_time)}")
 
-main()
+if __name__ == "__main__":
+    main()
