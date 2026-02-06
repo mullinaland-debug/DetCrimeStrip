@@ -13,7 +13,7 @@ JSON format:
     "start_year" : When to begin, as a string. Optional
     "end_year" : When to stop, as a string. Optional, but must be present if start_year is used
 }
-
+Example JSON:
 {
     "method" : "zip_code",
     "keep_blank_loc" : "True"
@@ -73,7 +73,7 @@ def SetSort(fname='default.json'):
             case "neighborhood":
                 print(f"Pulling neighborhoods from {fname}...")
             case "report_number":
-                print(f"Pullin report numbers from {fname}...")
+                print(f"Pulling report numbers from {fname}...")
             case "police_precinct":
                 print(f"Pulling precincts from {fname}...")
             case "offense_category":
@@ -81,7 +81,9 @@ def SetSort(fname='default.json'):
             case "offense_description":
                 print(f"Pulling offense descriptions from {fname}...")
             case "nearest_intersection":
-                print(f"Pulling nearest intersections from {fname}...")                
+                print(f"Pulling nearest intersections from {fname}...")
+            case "incident_occurred_at":
+                print(f"Pulling incidents by date time from {fname}...")
             case _:
                 print(f"Invalid or unknown method provided.")
                 return []
