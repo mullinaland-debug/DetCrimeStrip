@@ -24,7 +24,7 @@ Example JSON:
     
 
 Version: 1.1.1
-Date: 1/13/2026
+Date: 2/6/2026
 Python Version: 3.14.2
 Author: Alan Mullin
 """
@@ -95,6 +95,7 @@ def main():
     crimes = []
     crimes_total = 0
     sort_keepblank = False
+    bad_locations = 0
     
     parser = argparse.ArgumentParser(
                         prog='Detroit Crime Strip',
@@ -131,8 +132,8 @@ def main():
         reader = csv.DictReader(csvfile)        
         
         for row in reader:
-            if sort_method == 'offense_description': # remove trailing white space
-                row['offense_description'] = row['offense_description'].rstrip()
+            if sort_method == 'offense_description': # remove white space
+                row['offense_description'] = row['offense_description'].strip()
             
             for h in sort_list:
                 if sort_keepblank == False and not (row.get("X") or row.get("Y") or row.get("nearest_intersection")):
@@ -142,13 +143,13 @@ def main():
                     crimes.append(row)
                     crimes_total += 1
     
-    print(f"Total Crimes: {crimes_total}")
+    print(f"Total Crimes: {crimes_total}") # This total is for all years
     csvfile.close()
     
     # sort by incident_occurred_at
     crimes = sorted(crimes, key=itemgetter('incident_occurred_at'))
     
-    #Write our grand output
+    #This writes the raw data
     print(f"Beginning file write...")
     with open('Detroit_Crime_Clients.csv','w',newline='') as outfile:
         writer = csv.DictWriter(outfile,fieldnames=reader.fieldnames)
@@ -158,7 +159,7 @@ def main():
             writer.writerow(c)
             crimes_total -= 1
         if crimes_total != 0:
-            print(f"Total Crimes: {crimes_total}")
+            print(f"Total Crimes: {crimes_total}") 
             
     outfile.close()
     
@@ -191,6 +192,7 @@ def main():
                 else:
                     continue
             print(f"Rows: {rows}")
+            print(f"Skipped {bad_locations} rows with bad locations.")
         yearfile.close()
 
     print(f"Total Time: {(datetime.datetime.now() - start_time)}")
