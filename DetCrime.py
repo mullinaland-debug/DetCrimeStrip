@@ -137,7 +137,7 @@ def main():
             
             for h in sort_list:
                 if sort_keepblank == False and not (row.get("X") or row.get("Y") or row.get("nearest_intersection")):
-                    continue # skip the bad location info
+                    bad_locations += 1 # skip the bad location info
                 search_term = re.compile(h)
                 if search_term.match(row[sort_method]):
                     crimes.append(row)
@@ -192,9 +192,9 @@ def main():
                 else:
                     continue
             print(f"Rows: {rows}")
-            print(f"Skipped {bad_locations} rows with bad locations.")
         yearfile.close()
-
+    
+    print(f"Skipped {bad_locations} rows with bad locations.")
     print(f"Total Time: {(datetime.datetime.now() - start_time)}")
 
 if __name__ == "__main__":
